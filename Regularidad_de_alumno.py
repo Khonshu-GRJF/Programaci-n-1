@@ -3,6 +3,12 @@
 
 #¿ Yo quiero saber cuando uno de los siguentes alumnos esta o no esta regular ?
 
+import json
+
+with open("alumnos.json", "r" , encoding="utf-8") as archivo:
+    alumnos = json.load(archivo)
+
+
 alumnos = [
     { "nombre": "Juan", "notas": [7, 8, 9, 6], "asistencia": 90 },
     { "nombre": "Maria", "notas": [5, 6, 4, 7], "asistencia": 60 },
@@ -14,14 +20,14 @@ alumnos = [
 #Necesitamos tener las 4 notas alumnos para poder determinar si estan regulares o no.
 #Y saber el % de asistencia de cada alumno.
 
-#hacer funcion para determinar promedio de un alumno
+#funcion para determinar promedio de un alumno
 def calcular_promedio(notas):
     suma=sum(notas)
     cantidad=len(notas)
     promedio=suma/cantidad
     return promedio
 
-#hacer funcion para determinar regularidad de un alumno
+#funcion para determinar regularidad de un alumno
 def es_regular(alumno):
     promedio = calcular_promedio(alumno["notas"])
     asistencia = alumno["asistencia"]
@@ -40,11 +46,16 @@ for alumno in alumnos:
     print(f"Alumno: {alumno['nombre']}")
     print(f"Promedio de notas: {promedio}")
     print(f"Asistencia: {alumno['asistencia']}%")
-
+    
     if regular:
         print("Estado: ESTÁ REGULAR")
     else:
         print("Estado: NO ESTÁ REGULAR")
+        
+        
+with open (alumnos.json  , "w" , encoding="utf-8") as archivo:
+   
+
  
 
 
