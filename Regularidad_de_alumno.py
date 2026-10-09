@@ -5,9 +5,6 @@
 
 import json
 
-with open("alumnos.json", "r" , encoding="utf-8") as archivo:
-    alumnos = json.load(archivo)
-
 
 alumnos = [
     { "nombre": "Juan", "notas": [7, 8, 9, 6], "asistencia": 90 },
@@ -53,7 +50,11 @@ for alumno in alumnos:
         print("Estado: NO ESTÁ REGULAR")
         
         
-with open (alumnos.json  , "w" , encoding="utf-8") as archivo:
+with open("alumnos.json", "r" , encoding="utf-8") as archivo:
+    alumnos = json.load(archivo)
+        
+        
+
    
 
  
