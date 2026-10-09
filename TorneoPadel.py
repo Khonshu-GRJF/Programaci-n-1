@@ -25,6 +25,10 @@
   #  "Los Tanos"), y
    #exactamente 2 jugadores, elegidos entre los que ya fueron inscriptos.
    
+import json
+import os
+
+   
 def cargar_jugadores():
     jugadores = []
     cantidad = int(input("¿Cuántos jugadores van a participar en el torneo? "))
@@ -65,27 +69,30 @@ def armar_parejas(jugadores):
     
     return parejas
 
-def guardar_jugadores(jugadores):
-    with open("jugadores.txt", "w", encoding="utf-8") as archivo:
-        for jugador in jugadores:
-            archivo.write(f"{jugador['nombre']} - {jugador['categoria']}\n")
+if os.path.exists("jugadores.json"):
+    with open("jugadores.json", "r", encoding="utf-8") as archivo:
+        jugadores = json.load(archivo)
+else:
+    jugadores = cargar_jugadores()
+    
+if os.path.exists("parejas.json"):
+    with open("parejas.json", "r", encoding="utf-8") as archivo:
+        parejas = json.load(archivo)    
+else:
+    parejas = armar_parejas(jugadores)
 
-def guardar_parejas(parejas):
-    with open("parejas.txt", "w", encoding="utf-8") as archivo:
-        for pareja in parejas:
-            jugador1 = pareja["jugadores"][0]["nombre"]
-            jugador2 = pareja["jugadores"][1]["nombre"]
-            archivo.write(f"{pareja['nombre']}: {jugador1} y {jugador2}\n")
+
+with open("jugadores.json", "w", encoding="utf-8") as archivo:
+    json.dump(jugadores, archivo, ensure_ascii=False, indent=4)
+    
+with open("parejas.json", "w", encoding="utf-8") as archivo:
+    json.dump(parejas, archivo, ensure_ascii=False, indent=4)
 
 
-jugadores = cargar_jugadores()
-parejas = armar_parejas(jugadores)
+print("Los jugadores se guardaron en jugadores.json")
+print("Las parejas se guardaron en parejas.json")
 
-guardar_jugadores(jugadores)
-guardar_parejas(parejas)
 
-print("Los jugadores se guardaron en jugadores.txt")
-print("Las parejas se guardaron en parejas.txt")
 
 
 
