@@ -1,3 +1,7 @@
+import json
+import os
+
+
 def main():
     #1.Catálogo inicial de productos (código como clave, nombre y precio)
     productos = {
@@ -11,6 +15,16 @@ def main():
     
     #Estructura para ventas: { día (1 al 5): { código_producto: cantidad } }
     ventas = {}
+    
+    
+    if os.path.exists("ventas.json"):
+        with open("ventas.json", "r", encoding="utf-8") as archivo:
+            datos = json.load(archivo)
+            
+        for dia in datos:
+            ventas[int(dia)] = {}
+            for codigo in datos[dia]:
+                ventas[int(dia)][int(codigo)] = datos[dia][codigo]
     
     #2.Menú principal usando un bucle while
     while True:
@@ -43,12 +57,14 @@ def main():
                 if dia not in ventas:
                     ventas[dia] = {}
                 
-                #Acumular la venta
                 if codigo in ventas[dia]:
                     ventas[dia][codigo] += cantidad
                 else:
                     ventas[dia][codigo] = cantidad
-                
+
+                with open("ventas.json", "w", encoding="utf-8") as archivo:
+                    json.dump(ventas, archivo, ensure_ascii=False, indent=4)
+
                 print("¡Venta registrada con éxito!")
                 
             except ValueError:
@@ -94,4 +110,4 @@ def main():
             break
         else:
             print("Opción inválida. Intente nuevamente.")
-    main()
+main()
