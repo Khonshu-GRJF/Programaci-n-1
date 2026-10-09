@@ -13,6 +13,16 @@ alumnos = [
     { "nombre": "Ana", "notas": [6, 5, 7, 8], "asistencia": 85 }
 ]
 
+
+with open("alumnos.json", "w", encoding="utf-8") as archivo:
+    json.dump(alumnos, archivo, ensure_ascii=False, indent=4)   
+    
+with open("alumnos.json", "r", encoding="utf-8") as archivo:
+    alumnos = json.load(archivo)    
+    
+
+
+
 #hacer una funcion que calcule la regularidad de los alumnos
 #Necesitamos tener las 4 notas alumnos para poder determinar si estan regulares o no.
 #Y saber el % de asistencia de cada alumno.
@@ -50,8 +60,7 @@ for alumno in alumnos:
         print("Estado: NO ESTÁ REGULAR")
         
         
-with open("alumnos.json", "r" , encoding="utf-8") as archivo:
-    alumnos = json.load(archivo)
+
         
         
 
